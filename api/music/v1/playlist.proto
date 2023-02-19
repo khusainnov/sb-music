@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+option go_package = "github.com/khusainnov/sb-music/pkg/music-api/v1;mapi";
+
+import "google/protobuf/duration.proto";
+
+service MusicService {
+  // Play will start to play music in queue
+  rpc PlaySong(PlaySongRequest) returns(PlaySongResponse) {}
+
+  // Pause will stop playing current song
+  rpc PauseSong(PauseSongRequest) returns(PauseSongResponse) {}
+
+  // AddSong will add a new song to the end of queue
+  rpc AddSong(AddSongRequest) returns(AddSongResponse) {}
+
+  // Next will skip current song
+  rpc NextSong(NextSongRequest) returns(NextSongResponse) {}
+
+  // PrevSong will turn previous song
+  rpc PrevSong(PrevSongRequest) returns(PrevSongResponse) {}
+}
+
+message PlaySongRequest {}
+
+message PauseSongRequest {}
+
+message AddSongRequest {
+  string name = 1;
+  string description = 2;
+  google.protobuf.Duration duration = 3;
+}
+
+message NextSongRequest {}
+
+message PrevSongRequest {}
+
+message Song {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  google.protobuf.Duration duration = 4;
+}
+
+message PlaySongResponse {
+  string name = 1;
+  google.protobuf.Duration duration = 2;
+}
+
+message PauseSongResponse {
+  string name = 1;
+  google.protobuf.Duration time_left = 2;
+}
+
+message AddSongResponse {}
+
+message NextSongResponse {
+  string name = 1;
+  google.protobuf.Duration duration = 2;
+}
+
+message PrevSongResponse {
+  string name = 1;
+  google.protobuf.Duration duration = 2;
+}
